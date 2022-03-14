@@ -12,3 +12,4 @@ class MessageHelper:
             deserialized_message = deserialize(read_message)
         return deserialized_message
 
+

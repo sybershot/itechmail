@@ -1,13 +1,13 @@
 import smtplib
 import ssl
 from datetime import datetime
-from email.mime.multipart import MIMEMultipart
+from email.message import EmailMessage
 
 from robot.api.deco import keyword
 
 from config.constants import MESSAGE_PATH, SMTP_SERVER, SSL_PORT
-from utils.message import Message
-from utils.message_helper import MessageHelper
+from project.utils.message import Message
+from project.utils.message_helper import MessageHelper
 
 
 class MailSteps:
@@ -33,10 +33,12 @@ class MailSteps:
 
     @staticmethod
     @keyword(name="Send message")
-    def send_message(message):
+    def send_message(message: EmailMessage):
         context = ssl.create_default_context()
         password = input("Enter the password: ")
+        recipients = message.get("to").split(",") + message.get("cc").split(",")
         with smtplib.SMTP_SSL(SMTP_SERVER, SSL_PORT, context=context) as server:
-            server.login(email, password)
+            server.login("qa.automation@mail.ru", password)
+            server.sendmail(message.get("from"), recipients, message.as_string())
 
 
