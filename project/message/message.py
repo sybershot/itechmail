@@ -13,15 +13,16 @@ class Message(Serializable):
     text: str
     date: str
 
-    def serialize(self):
+    def prepare(self):
         message = EmailMessage()
         message.add_header("From", self.sender)
         message.add_header("To",  self.to)
         message.add_header("CC", self.cc)
         message.add_header("Subject", self.subject)
-        body = self.text + '\n' + self.date
+        body = self.text
         message.set_content(body)
         return message
 
-    def deserialize(self):
-        pass
+    def serialize(self):
+        return {"sender": self.sender, "to": self.to, "cc": self.cc,
+                "subject": self.subject, "body": self.text, "date": self.date}

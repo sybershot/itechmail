@@ -1,0 +1,1 @@
+DRIVERS_LOCATION = 'message/drivers'

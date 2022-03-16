@@ -1,6 +1,6 @@
 {
    "from":"qa.automation@mail.ru",
-   "to":"qa.automation1190@yopmail.com, a@b.c",
+   "to":"qa.automation1190@yopmail.com",
    "cc":"qa.automation1191@mailto.plus",
    "subject":"Test SMTP",
    "text":"This message was sent using smtplib",
