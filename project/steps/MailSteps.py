@@ -16,6 +16,7 @@ from project.page_objects.yopmail_page import YopMailPageObject
 from utils.browser_manager.browser import Browser
 from project.message.message import Message
 from project.message.message_helpers import MessageHelper
+from utils.waitutils.waitutils import WaitUtils
 
 YOPMAIL_URL = "https://yopmail.com/"
 YOPMAIL_KEYS = "qa.automation1190"
@@ -110,6 +111,7 @@ class MailSteps:
 
     @staticmethod
     @keyword(name="Compare Fetched Emails")
+    @WaitUtils.waituntiltrue
     def compare_fetched_emails(initial: Message, yopmail: Message, mailto: Message):
         info(f"Emails to compare:\nInitial message: {initial}\nYopmail: {yopmail}\nMailto: {mailto}")
         soft_assert(yopmail.sender in initial.sender, "Yopmail sender is not equal to initial message sender!")
@@ -123,3 +125,4 @@ class MailSteps:
         soft_assert(yopmail.date in initial.date, "Yopmail date does not match initial message date!")
         soft_assert(mailto.date in initial.date, "Mailto date does not match initial message date!")
         verify_expectations()
+        return True
